@@ -7,6 +7,8 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 	<style type="text/css">
 		*{
 			font-family: 'Do Hyeon', sans-serif;
@@ -33,7 +35,55 @@
 			padding: 10px;
 		}
 	</style>
+	<script type="text/javascript">
+		
+		function order(){
+ 		var orderCnt = $('#inputGroupSelect01').val();
+        var orderName = $('#fill2').val();
+        var orderLocation = $('#fill3').val();
+        var orderPhone = $('#fill4').val();
+        
+			if(orderCnt == $('#fill1').text()){
+			  alert("수량을 선택해주세요!");
+			  $('#inputGroupSelect01').focus();
+			  
+			}else if(orderName ==""){
+	          alert("이름을 입력해주세요!");
+	          $('#fill2').focus();
+	         
+            }else if(orderLocation ==""){
+	          alert("주소를 입력해주세요!");
+	          $('#fill3').focus();
+            	
+            }else if(orderPhone ==""){
+           	  alert("전화번호를 입력해주세요!");
+           	  $('#fill4').focus();
+	          
+    }
 
+        function phoneNumber(str);
+
+	        var numCheck =  /^\d{3}-\d{3,4}-\d{4}$/;
+
+	        if(!numCheck.test(str)) {
+
+		        alert('휴대번호를 정확히 입력해주세요');
+
+		        return false;
+	        }
+	            return true;
+
+}
+
+
+        	 if($('#fill4').val() = /^\d{3}-\d{3,4}-\d{4}$/){
+
+        	 alert("휴대번호를 정확히 입력해주세요");
+        	 return;
+        }
+}
+
+</script>
 </head>
 <body>
 	<div class= "wrap">
@@ -49,7 +99,7 @@
 					<span class="input-group-text" id="basic-addon1">수량</span>
 				</div>
 				<select class="custom-select" id="inputGroupSelect01">
-					<option selected>----수량을 선택하세요----</option>
+					<option id=fill1 selected>----수량을 선택하세요----</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -63,25 +113,25 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">주문자 이름</span>
 					</div>
-					<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+					<input type="text" class="form-control" id=fill2 placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
 				</div>
 
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">주소</span>
 					</div>
-					<input type="text" class="form-control" placeholder="주소를 입력해주세요" aria-label="Username" aria-describedby="basic-addon1">
+					<input type="text" class="form-control" id=fill3 placeholder="주소를 입력해주세요" aria-label="Username" aria-describedby="basic-addon1">
 				</div>
 
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">전화번호</span>
 					</div>
-					<input type="text" class="form-control" placeholder="전화번호를 입력해주세요" aria-label="Username" aria-describedby="basic-addon1">
+					<input type="text" class="form-control" id=fill4 placeholder="전화번호를 입력해주세요(ex.OOO-OOOO-OOOO)" aria-label="Username" aria-describedby="basic-addon1">
 				</p>
 			</div>
 			<div class="sumit">
-				<a class="btn btn-primary btn-lg" href="#" role="button">주문하기</a>
+				<a onclick="order()" class="btn btn-primary btn-lg" href="#" role="button">주문하기</a>
 			</div>
 		</div>
 	</div>
