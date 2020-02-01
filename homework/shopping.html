@@ -59,30 +59,60 @@
            	  alert("전화번호를 입력해주세요!");
            	  $('#fill4').focus();
 	          
-    }
+            }else if (!isCellPhone(phone)) {
+          alert("휴대폰번호 입력 형식이 틀립니다. \n 010-0000-0000으로 입력해주세요")
+      }
+     }
 
-       /* function phoneNumber(str);
+       function isCellPhone(p) {
+        var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})[-][0-9]{3,4}[-][0-9]{4}$/;
+        return regExp.test(p);
+      }
+      
 
-	        var numCheck =  /^\d{3}-\d{3,4}-\d{4}$/;
+       $(document).ready(function(){
+        $('#order-info').html('');
+        list();
+      });
 
-	        if(!numCheck.test(str)) {
+      function list() {
+      
+        $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/order",
+        data: {},
+        success: function(response){
+         alert(response);
+         var order = response['orders'];
+         
+         for(var i=0;i<order.length;i++){
+           var adress = order[i]['address'];
+           var count = order[i]['count'];
+           var name = order[i]['name'];
+           var phone = order[i]['phone'];
+          
 
-		        alert('휴대번호를 정확히 입력해주세요');
+           var html = 
+                    "<tr>\
+					  <td>"+name+"</td>\
+					  <td>"+count+"</td>\
+					  <td>"+address+"</td>\
+					  <td>"+phone+"</td>\
+					</tr>"
+           $('#order-info').append(html);
+  
+         }
 
-		        return false;
-	        }
-	            return true;
-
+       },
+		    error: function(){
+		    	alert("data load failed");
+		    }
+     });
+    
 }
 
 
-        	 if($('#fill4').val() = /^\d{3}-\d{3,4}-\d{4}$/){
 
-        	 alert("휴대번호를 정확히 입력해주세요");
-        	 return;
-        }
-        */
-}
 
 </script>
 </head>
@@ -135,6 +165,19 @@
 				<a onclick="order()" class="btn btn-primary btn-lg" href="#" role="button">주문하기</a>
 			</div>
 		</div>
+        
+		<table class="table">
+         <thead>
+            <tr>
+            	<th>이름</th>
+            	<th>수량</th>
+            	<th>주소</th>
+            	<th>전화번호</th>
+           </tr>
+         </thead>
+           <tbody id="order-info">
+           </tbody>
+		</table>
 	</div>
 </div>
 </body>

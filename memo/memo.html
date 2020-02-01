@@ -3,7 +3,7 @@
 <head>
 
   <!-- Webpage Title -->
-  <title>Hello, world!</title>
+  <title>Memo</title>
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -51,12 +51,47 @@
 
     function open_close(){
       if ( $('#posting-box').css('display') == 'block' ) {
-      $('#posting-box').toggle();
-      $('#btn-posting-box').text('포스팅 박스 열기')
-    } else {
-      $('#posting-box').toggle();
-      $('#btn-posting-box').text('포스팅 박스 닫기')
+        $('#posting-box').toggle();
+        $('#btn-posting-box').text('포스팅 박스 열기')
+      } else {
+        $('#posting-box').toggle();
+        $('#btn-posting-box').text('포스팅 박스 닫기')
+      }
     }
+
+    $(document).ready(function(){
+      $('#cards-box').html("");
+      listing();
+    });
+
+    function listing() {
+     $.ajax({
+      type: "GET",
+      url: "http://spartacodingclub.shop/post",
+      data: {},
+      success: function(response){
+        var articles = response['articles']
+
+        articles.forEach(article => makeCard(
+           article['comment'],article['title'],
+           article['desc'],article['url'],
+           article['image']
+
+          ));
+      }
+    })
+   }
+     function makeCard(comment, desc, image, title, url) {
+      var temp_html = '<div class="card">\
+      <img class="card-img-top" src="'+image+'" alt="Card image cap">\
+      <div class="card-body">\
+      <a href="'+url+'" target="_blank" class="card-title">'+title+'</a>\
+      <p class="card-text">'+desc+'</p>\
+      <p class="card-text comment">'+comment+'</p>\
+      </div>\
+      </div>';
+      $('#cards-box').append(temp_html);
+    
   }
 
 </script>
